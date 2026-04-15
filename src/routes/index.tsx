@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
 import HeroSection from "@/components/HeroSection";
 
@@ -16,8 +16,18 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [hasShownLoading, setHasShownLoading] = useState(false);
   const handleComplete = useCallback(() => setLoading(false), []);
+
+  // Only show loading on client, once per session
+  useEffect(() => {
+    if (typeof window !== "undefined" && !sessionStorage.getItem("midad_loaded")) {
+      setLoading(true);
+      setHasShownLoading(true);
+      sessionStorage.setItem("midad_loaded", "1");
+    }
+  }, []);
 
   if (loading) {
     return <LoadingScreen onComplete={handleComplete} />;
