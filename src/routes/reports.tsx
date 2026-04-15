@@ -15,7 +15,7 @@ export const Route = createFileRoute("/reports")({
 
 function ReportsPage() {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <ReportsSection />
     </div>
   );

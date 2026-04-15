@@ -15,7 +15,7 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <ContactSection />
     </div>
   );

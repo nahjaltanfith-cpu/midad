@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import midadLogo from "@/assets/midad-logo.jpeg";
+import midadLogo from "@/assets/midad-logo.png";
 
 export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0);
@@ -28,7 +28,6 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
         transition: "opacity 0.5s ease-out",
       }}
     >
-      {/* Subtle radial glow */}
       <div
         className="absolute w-[400px] h-[400px] rounded-full"
         style={{
@@ -39,11 +38,10 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       <img
         src={midadLogo}
         alt="مداد لتمكين الشباب"
-        className="w-40 mb-10 relative z-10"
+        className="w-48 mb-10 relative z-10"
         style={{ animation: "pulse-glow 2.5s ease-in-out infinite" }}
       />
 
-      {/* Progress bar */}
       <div className="relative w-56">
         <div className="w-full h-[3px] rounded-full bg-border overflow-hidden">
           <div
