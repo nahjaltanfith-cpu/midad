@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import Navbar from "@/components/Navbar";
+import PageTransition from "@/components/PageTransition";
 import { Footer } from "@/components/ContactSection";
 
 import appCss from "../styles.css?url";
@@ -75,7 +76,9 @@ function RootComponent() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <PageTransition>
+        <Outlet />
+      </PageTransition>
       <Footer />
     </>
   );

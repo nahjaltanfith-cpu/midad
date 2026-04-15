@@ -8,3 +8,4 @@ Footer in __root.tsx (all pages). Separate routes per section.
 
 ## Memories
 - [Brand identity](mem://design/brand) — Colors, fonts, glassmorphism, gradient specs
+- [Image guidelines](mem://constraints/images) — No women/girls in header images
