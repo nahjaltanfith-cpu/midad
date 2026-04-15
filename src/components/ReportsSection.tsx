@@ -1,6 +1,8 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 
 export default function ReportsSection() {
+  const pdfUrl = "/docs/registration-decree.pdf";
+
   return (
     <section className="relative overflow-hidden">
       {/* Page Header */}
@@ -40,7 +42,7 @@ export default function ReportsSection() {
                       </div>
                     </div>
                   </div>
-                  <a href="/docs/registration-decree.pdf" target="_blank" rel="noopener noreferrer">
+                  <a href={pdfUrl} download className="inline-flex">
                     <button className="rounded-full gap-2 px-6 py-2.5 text-sm font-bold text-white gradient-gold shadow-gold hover:shadow-xl hover:scale-105 transition-all duration-300 inline-flex items-center">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -50,19 +52,17 @@ export default function ReportsSection() {
                   </a>
                 </div>
                 <div className="bg-muted/20 p-4">
-                  <object
-                    data="/docs/registration-decree.pdf"
-                    type="application/pdf"
-                    className="w-full rounded-xl"
+                  <iframe
+                    src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`}
+                    className="w-full rounded-xl border-0"
                     style={{ height: 700 }}
-                  >
-                    <div className="text-center py-20">
-                      <p className="text-muted-foreground mb-4">لا يمكن عرض الملف في المتصفح</p>
-                      <a href="/docs/registration-decree.pdf" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">
-                        اضغط هنا لفتح الملف
-                      </a>
-                    </div>
-                  </object>
+                    title="قرار التسجيل"
+                  />
+                  <div className="text-center mt-4">
+                    <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline text-sm">
+                      فتح الملف في نافذة جديدة ↗
+                    </a>
+                  </div>
                 </div>
               </div>
             </AnimateOnScroll>

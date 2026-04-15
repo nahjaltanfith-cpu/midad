@@ -2,34 +2,24 @@ import { useState, useEffect } from "react";
 import midadLogo from "@/assets/midad-logo.png";
 
 export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
-  const [progress, setProgress] = useState(0);
-  const [fadeOut, setFadeOut] = useState(false);
+  const [phase, setPhase] = useState<"spin" | "zoom" | "done">("spin");
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          setFadeOut(true);
-          setTimeout(onComplete, 600);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 25);
-    return () => clearInterval(timer);
+    const t1 = setTimeout(() => setPhase("zoom"), 1800);
+    const t2 = setTimeout(() => onComplete(), 2600);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [onComplete]);
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
       style={{
-        opacity: fadeOut ? 0 : 1,
+        opacity: phase === "done" ? 0 : 1,
         transition: "opacity 0.5s ease-out",
       }}
     >
       <div
-        className="absolute w-[400px] h-[400px] rounded-full"
+        className="absolute w-[500px] h-[500px] rounded-full"
         style={{
           background: "radial-gradient(circle, oklch(0.45 0.08 200 / 6%) 0%, transparent 70%)",
         }}
@@ -38,21 +28,20 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       <img
         src={midadLogo}
         alt="مداد لتمكين الشباب"
-        className="w-48 mb-10 relative z-10"
-        style={{ animation: "pulse-glow 2.5s ease-in-out infinite" }}
+        className="w-40 relative z-10"
+        style={{
+          animation: phase === "spin"
+            ? "logoSpin 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards"
+            : "logoZoomOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        }}
       />
 
-      <div className="relative w-56">
-        <div className="w-full h-[3px] rounded-full bg-border overflow-hidden">
-          <div
-            className="h-full rounded-full gradient-primary transition-all duration-75 ease-out"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <p className="text-[10px] text-muted-foreground mt-3 text-center tracking-[0.2em] font-medium uppercase">
-          مداد لتمكين الشباب
-        </p>
-      </div>
+      <p
+        className="absolute bottom-[30%] text-[10px] text-muted-foreground tracking-[0.25em] font-medium uppercase"
+        style={{ opacity: phase === "spin" ? 1 : 0, transition: "opacity 0.4s" }}
+      >
+        مداد لتمكين الشباب
+      </p>
     </div>
   );
 }

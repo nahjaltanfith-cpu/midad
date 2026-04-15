@@ -1,14 +1,37 @@
 import { Link } from "@tanstack/react-router";
-import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
+import { useEffect, useRef } from "react";
 import VisionSection from "@/components/VisionSection";
+import heroBg from "@/assets/hero-bg.jpg";
 
 export default function HeroSection() {
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (bgRef.current) {
+        bgRef.current.style.transform = `translateY(${window.scrollY * 0.4}px) scale(1.1)`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Gradient background instead of image */}
-        <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/98 via-[#1C6C81]/90 to-[#2A8DA8]/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_oklch(0.72_0.14_75_/_8%)_0%,_transparent_50%)]" />
+        {/* Parallax background image */}
+        <div
+          ref={bgRef}
+          className="absolute inset-0 will-change-transform"
+          style={{
+            backgroundImage: `url(${heroBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            transform: "scale(1.1)",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/80 via-[#1C6C81]/60 to-[#2A8DA8]/40" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_oklch(0.72_0.14_75_/_10%)_0%,_transparent_50%)]" />
 
         {/* Decorative geometry */}
         <div className="absolute top-20 left-16 w-80 h-80 rounded-full border border-white/[0.04] animate-[float_12s_ease-in-out_infinite]" />
