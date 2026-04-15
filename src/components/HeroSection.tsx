@@ -32,15 +32,15 @@ export default function HeroSection() {
             transform: "scale(1.1)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/80 via-[#1C6C81]/60 to-[#2A8DA8]/40" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_oklch(0.72_0.14_75_/_10%)_0%,_transparent_50%)]" />
+        <div className="absolute inset-0 bg-linear-to-l from-[#071e25]/80 via-[#1C6C81]/60 to-[#2A8DA8]/40" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.72_0.14_75/10%)_0%,transparent_50%)]" />
 
         {/* Decorative geometry */}
-        <div className="absolute top-20 left-16 w-80 h-80 rounded-full border border-white/[0.04] animate-[float_12s_ease-in-out_infinite]" />
-        <div className="absolute top-32 left-28 w-56 h-56 rounded-full border border-white/[0.03] animate-[float_10s_ease-in-out_infinite_1s]" />
-        <div className="absolute bottom-40 left-1/3 w-48 h-48 rounded-full border border-white/[0.03] animate-[float_8s_ease-in-out_infinite_2s]" />
-        <div className="absolute top-1/4 right-8 w-[3px] h-28 rounded-full bg-gradient-to-b from-[#D4A533]/50 to-transparent" />
-        <div className="absolute bottom-1/3 right-16 w-[3px] h-20 rounded-full bg-gradient-to-b from-white/10 to-transparent" />
+        <div className="absolute top-20 left-16 w-80 h-80 rounded-full border border-white/4 animate-[float_12s_ease-in-out_infinite]" />
+        <div className="absolute top-32 left-28 w-56 h-56 rounded-full border border-white/3 animate-[float_10s_ease-in-out_infinite_1s]" />
+        <div className="absolute bottom-40 left-1/3 w-48 h-48 rounded-full border border-white/3 animate-[float_8s_ease-in-out_infinite_2s]" />
+        <div className="absolute top-1/4 right-8 w-0.75 h-28 rounded-full bg-linear-to-b from-[#D4A533]/50 to-transparent" />
+        <div className="absolute bottom-1/3 right-16 w-0.75 h-20 rounded-full bg-linear-to-b from-white/10 to-transparent" />
 
         {/* Floating orbs */}
         <div className="absolute top-[15%] left-[10%] w-3 h-3 rounded-full bg-gold/30" style={{ animation: "float 6s ease-in-out infinite" }} />
@@ -64,7 +64,7 @@ export default function HeroSection() {
             >
               {t("hero.title1")}
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#D4A533] via-[#E8C84B] to-[#f0d06e]">
+              <span className="text-transparent bg-clip-text bg-linear-to-l from-[#D4A533] via-[#E8C84B] to-[#f0d06e]">
                 {t("hero.title2")}
               </span>
             </h1>
@@ -94,8 +94,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/50 to-transparent z-10" />
       </section>
 
       {/* Vision & Mission on Home Page */}
