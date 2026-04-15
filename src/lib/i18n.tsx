@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
 
 type Lang = "ar" | "en";
 
@@ -18,12 +18,15 @@ export function useI18n() {
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("lang") as Lang) || "ar";
-    }
-    return "ar";
-  });
+  const [lang, setLang] = useState<Lang>("ar");
+  const [hydrated, setHydrated] = useState(false);
+
+  // Sync from localStorage after hydration to avoid mismatch
+  useEffect(() => {
+    const saved = localStorage.getItem("lang") as Lang;
+    if (saved && saved !== lang) setLang(saved);
+    setHydrated(true);
+  }, []);
 
   const toggleLang = useCallback(() => {
     setLang((prev) => {
