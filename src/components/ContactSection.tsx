@@ -3,9 +3,11 @@ import { Link } from "@tanstack/react-router";
 import midadLogo from "@/assets/midad-logo.png";
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerContact from "@/assets/header-contact.jpg";
+import { useI18n } from "@/lib/i18n";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const { t } = useI18n();
 
   return (
     <section className="relative overflow-hidden">
@@ -19,9 +21,9 @@ export default function ContactSection() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <AnimateOnScroll>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.1] backdrop-blur-sm text-xs font-bold tracking-[0.15em] text-white/90 uppercase mb-5">
-              نحب نسمع منك
+              {t("contact.badge")}
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">تواصل معنا</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{t("contact.title")}</h1>
             <div className="w-20 h-[3px] mx-auto rounded-full gradient-gold" />
           </AnimateOnScroll>
         </div>
@@ -35,11 +37,11 @@ export default function ContactSection() {
             {/* Form */}
             <AnimateOnScroll>
               <div className="p-10 rounded-[2rem] bg-card shadow-luxury border border-border gold-border-hover">
-                <h3 className="text-2xl font-bold text-foreground mb-8">أرسل لنا رسالة</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-8">{t("contact.formTitle")}</h3>
                 <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                   {[
-                    { id: "name", label: "الاسم الكامل", type: "text", value: formData.name, key: "name" as const },
-                    { id: "email", label: "البريد الإلكتروني", type: "email", value: formData.email, key: "email" as const },
+                    { id: "name", label: t("contact.nameLabel"), type: "text", value: formData.name, key: "name" as const },
+                    { id: "email", label: t("contact.emailLabel"), type: "email", value: formData.email, key: "email" as const },
                   ].map((field) => (
                     <div key={field.id} className="relative group">
                       <input
@@ -71,11 +73,11 @@ export default function ContactSection() {
                       htmlFor="message"
                       className="absolute right-5 top-2.5 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-sm peer-focus:top-2.5 peer-focus:text-xs peer-focus:text-primary font-medium"
                     >
-                      رسالتك
+                      {t("contact.messageLabel")}
                     </label>
                   </div>
-                  <button className="w-full rounded-2xl py-3.5 text-base font-bold text-white gradient-primary shadow-elegant hover:shadow-luxury hover:scale-[1.02] transition-all duration-300">
-                    إرسال الرسالة
+                  <button type="submit" className="w-full rounded-2xl py-3.5 text-base font-bold text-white gradient-primary shadow-elegant hover:shadow-luxury hover:scale-[1.02] transition-all duration-300">
+                    {t("contact.send")}
                   </button>
                 </form>
               </div>
@@ -99,8 +101,8 @@ export default function ContactSection() {
                 <div className="p-8 rounded-[2rem] bg-card shadow-luxury border border-border gold-border-hover">
                   <div className="space-y-5">
                     {[
-                      { icon: "M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z", label: "المقر", value: "أبها، منطقة عسير" },
-                      { icon: "M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z", label: "الترخيص", value: "1000862200" },
+                      { icon: "M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z", label: t("contact.hqLabel"), value: t("contact.hqValue") },
+                      { icon: "M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z", label: t("contact.licenseLabel"), value: "1000862200" },
                     ].map((item) => (
                       <div key={item.label} className="flex items-center gap-4 group cursor-pointer">
                         <div className="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-300">
@@ -126,10 +128,10 @@ export default function ContactSection() {
               <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/[0.05] group-hover:scale-150 transition-transform duration-1000" />
               <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/[0.03] group-hover:scale-125 transition-transform duration-1000" />
               <div className="relative z-10">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">انضم إلى مداد</h3>
-                <p className="text-white/80 mb-8 text-lg font-light">كن جزءاً من رحلة تمكين الشباب وبناء المستقبل</p>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t("contact.joinTitle")}</h3>
+                <p className="text-white/80 mb-8 text-lg font-light">{t("contact.joinDesc")}</p>
                 <button className="rounded-full px-10 py-3.5 text-base font-bold text-white gradient-gold shadow-gold hover:shadow-xl hover:scale-105 transition-all duration-300">
-                  طلب عضوية
+                  {t("contact.joinBtn")}
                 </button>
               </div>
             </div>
@@ -141,6 +143,7 @@ export default function ContactSection() {
 }
 
 export function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="relative overflow-hidden">
       <div className="absolute inset-0 gradient-footer" />
@@ -152,14 +155,12 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div>
             <img src={midadLogo} alt="مداد" className="h-20 mb-5 brightness-0 invert opacity-90" />
-            <p className="text-white/90 font-bold text-xl mb-2">مداد لتمكين الشباب</p>
-            <p className="text-sm text-white/40 leading-relaxed">
-              جمعية أهلية تحت إشراف وزارة الموارد البشرية والتنمية الاجتماعية
-            </p>
+            <p className="text-white/90 font-bold text-xl mb-2">{t("footer.orgName")}</p>
+            <p className="text-sm text-white/40 leading-relaxed">{t("footer.orgDesc")}</p>
           </div>
 
           <div className="text-center">
-            <p className="text-sm text-white/60 mb-5 font-bold tracking-wide">تابعنا على</p>
+            <p className="text-sm text-white/60 mb-5 font-bold tracking-wide">{t("footer.followUs")}</p>
             <div className="flex justify-center gap-4">
               <a href="#" className="w-12 h-12 rounded-2xl bg-white/[0.08] backdrop-blur-sm flex items-center justify-center hover:bg-white/[0.15] hover:scale-110 hover:-translate-y-1 transition-all duration-400 text-white/80 hover:text-white" aria-label="LinkedIn">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -169,38 +170,38 @@ export function Footer() {
               </a>
             </div>
             <div className="mt-8 flex flex-wrap justify-center gap-4 text-xs">
-              <Link to="/" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">الرئيسية</Link>
-              <Link to="/about" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">عن الجمعية</Link>
-              <Link to="/governance" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">الحوكمة</Link>
-              <Link to="/contact" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">تواصل معنا</Link>
+              <Link to="/" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">{t("nav.home")}</Link>
+              <Link to="/about" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">{t("nav.about")}</Link>
+              <Link to="/governance" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">{t("nav.governance")}</Link>
+              <Link to="/contact" className="text-white/40 hover:text-white/70 hover:-translate-y-0.5 transition-all duration-300">{t("nav.contact")}</Link>
             </div>
           </div>
 
           <div className="text-left md:text-left">
-            <p className="text-sm text-white/60 mb-5 font-bold tracking-wide">معلومات التسجيل</p>
+            <p className="text-sm text-white/60 mb-5 font-bold tracking-wide">{t("footer.regInfo")}</p>
             <div className="space-y-3 text-sm text-white/60">
               <p className="flex items-center gap-3 group cursor-pointer hover:text-white/80 transition-colors duration-300">
                 <svg className="w-4 h-4 text-gold shrink-0 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                 </svg>
-                رقم الترخيص: <b className="text-white/80">1000862200</b>
+                {t("footer.licenseNum")}: <b className="text-white/80">1000862200</b>
               </p>
               <p className="flex items-center gap-3 group cursor-pointer hover:text-white/80 transition-colors duration-300">
                 <svg className="w-4 h-4 text-gold shrink-0 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
-                قرار: <b className="text-white/80">ED047745</b>
+                {t("footer.decree")}: <b className="text-white/80">ED047745</b>
               </p>
               <p className="flex items-center gap-3 group cursor-pointer hover:text-white/80 transition-colors duration-300">
                 <svg className="w-4 h-4 text-gold shrink-0 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
-                أبها، منطقة عسير
+                {t("footer.location")}
               </p>
             </div>
             <div className="mt-8 pt-6 border-t border-white/[0.06]">
-              <p className="text-xs text-white/25">© {new Date().getFullYear()} مداد لتمكين الشباب. جميع الحقوق محفوظة</p>
+              <p className="text-xs text-white/25">© {new Date().getFullYear()} {t("footer.rights")}</p>
             </div>
           </div>
         </div>

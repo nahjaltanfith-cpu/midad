@@ -1,8 +1,10 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerReports from "@/assets/header-reports.jpg";
+import { useI18n } from "@/lib/i18n";
 
 export default function ReportsSection() {
   const pdfUrl = "/docs/registration-decree.pdf";
+  const { t } = useI18n();
 
   return (
     <section className="relative overflow-hidden">
@@ -15,9 +17,9 @@ export default function ReportsSection() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <AnimateOnScroll>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.1] backdrop-blur-sm text-xs font-bold tracking-[0.15em] text-white/90 uppercase mb-5">
-              الوثائق الرسمية
+              {t("reports.badge")}
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">التقارير</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{t("reports.title")}</h1>
             <div className="w-20 h-[3px] mx-auto rounded-full gradient-gold" />
           </AnimateOnScroll>
         </div>
@@ -36,15 +38,13 @@ export default function ReportsSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="m9 15 2 2 4-4" />
                     </svg>
                   </div>
-                  <h2 className="text-3xl font-bold text-foreground">قرار التسجيل</h2>
+                  <h2 className="text-3xl font-bold text-foreground">{t("reports.docTitle")}</h2>
                 </div>
-                <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
-                  يمكنك تصفح قرار التسجيل كاملاً من داخل الصفحة مع إمكانية التحميل أو الفتح في نافذة مستقلة.
-                </p>
+                <p className="text-muted-foreground max-w-2xl mx-auto mb-4">{t("reports.docDesc")}</p>
                 <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-                  <span>رقم: <b className="text-foreground">ED047745</b></span>
-                  <span>ترخيص: <b className="text-foreground">1000862200</b></span>
-                  <span>تاريخ: <b className="text-foreground">1447/09/24 هـ</b></span>
+                  <span>{t("reports.number")}: <b className="text-foreground">ED047745</b></span>
+                  <span>{t("reports.license")}: <b className="text-foreground">1000862200</b></span>
+                  <span>{t("reports.date")}: <b className="text-foreground">1447/09/24 هـ</b></span>
                 </div>
               </div>
             </AnimateOnScroll>
@@ -75,7 +75,7 @@ export default function ReportsSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="m7 10 5 5 5-5" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 15V3" />
                   </svg>
-                  تحميل قرار التسجيل
+                  {t("reports.download")}
                 </a>
                 <a
                   href={pdfUrl}
@@ -83,7 +83,7 @@ export default function ReportsSection() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                 >
-                  فتح الملف في نافذة جديدة ↗
+                  {t("reports.openNew")}
                 </a>
               </div>
             </AnimateOnScroll>

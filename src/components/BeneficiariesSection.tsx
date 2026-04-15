@@ -1,5 +1,6 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerBeneficiaries from "@/assets/header-beneficiaries.jpg";
+import { useI18n } from "@/lib/i18n";
 
 const initiatives = [
   {
@@ -29,6 +30,7 @@ const initiatives = [
 ];
 
 export default function BeneficiariesSection() {
+  const { t } = useI18n();
   return (
     <section className="relative overflow-hidden">
       {/* Page Header */}
@@ -40,9 +42,9 @@ export default function BeneficiariesSection() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <AnimateOnScroll>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.1] backdrop-blur-sm text-xs font-bold tracking-[0.15em] text-white/90 uppercase mb-5">
-              أثرنا المجتمعي
+              {t("beneficiaries.badge")}
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">المستفيدون والمشاريع</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{t("beneficiaries.title")}</h1>
             <div className="w-20 h-[3px] mx-auto rounded-full gradient-gold" />
           </AnimateOnScroll>
         </div>
@@ -54,9 +56,9 @@ export default function BeneficiariesSection() {
           <AnimateOnScroll>
             <div className="text-center mb-14">
               <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/8 text-xs font-bold tracking-[0.15em] text-primary uppercase mb-4">
-                ✦ ما نقدمه
+                {t("beneficiaries.initTag")}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">مبادراتنا</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">{t("beneficiaries.initTitle")}</h2>
             </div>
           </AnimateOnScroll>
 
@@ -74,8 +76,8 @@ export default function BeneficiariesSection() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{item.title}</h4>
-                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <h4 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{t(`beneficiaries.i${i + 1}Title`)}</h4>
+                    <p className="text-muted-foreground leading-relaxed">{t(`beneficiaries.i${i + 1}Desc`)}</p>
                   </div>
                 </div>
               </AnimateOnScroll>
