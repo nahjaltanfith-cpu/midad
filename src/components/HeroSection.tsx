@@ -1,9 +1,10 @@
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export default function HeroSection() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
       <img
         src={heroBg}
         alt="شباب سعوديون في بيئة عمل حديثة"
@@ -44,14 +45,16 @@ export default function HeroSection() {
             className="flex flex-wrap gap-4"
             style={{ animation: "fadeUp 0.6s ease-out 0.45s forwards", opacity: 0 }}
           >
-            <Button variant="gradient-gold" size="lg" className="rounded-full px-10 text-base shadow-lg shadow-[#C5952A]/25 hover:shadow-xl hover:shadow-[#C5952A]/30 transition-shadow">
-              اكتشف المزيد
-            </Button>
-            <a href="#about">
+            <Link to="/vision">
+              <Button variant="gradient-gold" size="lg" className="rounded-full px-10 text-base shadow-lg shadow-[#C5952A]/25 hover:shadow-xl hover:shadow-[#C5952A]/30 transition-shadow">
+                اكتشف المزيد
+              </Button>
+            </Link>
+            <Link to="/about">
               <Button variant="outline" size="lg" className="rounded-full px-10 text-base border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
                 من نحن
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

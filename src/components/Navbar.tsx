@@ -4,13 +4,13 @@ import midadLogo from "@/assets/midad-logo.jpeg";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: "الرئيسية", href: "#home" },
-  { label: "من نحن", href: "#about" },
-  { label: "الحوكمة", href: "#governance" },
-  { label: "المستفيدون", href: "#beneficiaries" },
-  { label: "التقارير", href: "#reports" },
-  { label: "تواصل معنا", href: "#contact" },
-];
+  { label: "الرئيسية", to: "/" },
+  { label: "الرؤية", to: "/vision" },
+  { label: "من نحن", to: "/about" },
+  { label: "الحوكمة", to: "/governance" },
+  { label: "المستفيدون", to: "/beneficiaries" },
+  { label: "تواصل معنا", to: "/contact" },
+] as const;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,23 +29,29 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <img src={midadLogo} alt="مداد" className="h-12" />
+        <Link to="/">
+          <img src={midadLogo} alt="مداد" className="h-12" />
+        </Link>
         
         <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <Link
+              key={link.to}
+              to={link.to}
               className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              activeProps={{ className: "text-sm font-bold text-primary" }}
+              activeOptions={{ exact: true }}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
-        <Button variant="gradient" size="sm" className="hidden md:inline-flex rounded-full px-6">
-          انضم إلينا
-        </Button>
+        <Link to="/contact">
+          <Button variant="gradient" size="sm" className="hidden md:inline-flex rounded-full px-6">
+            انضم إلينا
+          </Button>
+        </Link>
 
         <button
           className="md:hidden p-2"
@@ -65,18 +71,22 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden glass mt-2 mx-4 rounded-xl p-4 space-y-3">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <Link
+              key={link.to}
+              to={link.to}
               className="block text-sm font-medium text-foreground/80 hover:text-primary py-2"
+              activeProps={{ className: "block text-sm font-bold text-primary py-2" }}
+              activeOptions={{ exact: true }}
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <Button variant="gradient" size="sm" className="w-full rounded-full">
-            انضم إلينا
-          </Button>
+          <Link to="/contact" onClick={() => setMobileOpen(false)}>
+            <Button variant="gradient" size="sm" className="w-full rounded-full">
+              انضم إلينا
+            </Button>
+          </Link>
         </div>
       )}
     </nav>
