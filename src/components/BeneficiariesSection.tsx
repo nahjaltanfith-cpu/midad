@@ -1,4 +1,5 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
+import headerBeneficiaries from "@/assets/header-beneficiaries.jpg";
 
 const initiatives = [
   {
@@ -31,10 +32,11 @@ export default function BeneficiariesSection() {
   return (
     <section className="relative overflow-hidden">
       {/* Page Header */}
-      <div className="relative overflow-hidden py-28">
-        <div className="absolute inset-0 gradient-hero" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.72_0.14_75_/_8%)_0%,_transparent_50%)]" />
-        <div className="absolute bottom-10 left-20 w-40 h-40 rounded-full border border-white/[0.04] animate-[float_9s_ease-in-out_infinite]" />
+      <div className="relative overflow-hidden py-32">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerBeneficiaries})` }} />
+        <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/85 via-[#1C6C81]/70 to-[#2A8DA8]/50" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.72_0.14_75_/_10%)_0%,_transparent_50%)]" />
+        <div className="absolute bottom-10 left-20 w-40 h-40 rounded-full border border-white/[0.05] animate-[float_9s_ease-in-out_infinite]" />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <AnimateOnScroll>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.1] backdrop-blur-sm text-xs font-bold tracking-[0.15em] text-white/90 uppercase mb-5">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import midadLogo from "@/assets/midad-logo.png";
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
+import headerContact from "@/assets/header-contact.jpg";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -9,11 +10,12 @@ export default function ContactSection() {
   return (
     <section className="relative overflow-hidden">
       {/* Page Header */}
-      <div className="relative overflow-hidden py-28">
-        <div className="absolute inset-0 gradient-hero" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.72_0.14_75_/_8%)_0%,_transparent_50%)]" />
-        <div className="absolute top-16 right-16 w-56 h-56 rounded-full border border-white/[0.04] animate-[float_10s_ease-in-out_infinite]" />
-        <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full bg-white/[0.03]" />
+      <div className="relative overflow-hidden py-32">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerContact})` }} />
+        <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/85 via-[#1C6C81]/70 to-[#2A8DA8]/50" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.72_0.14_75_/_10%)_0%,_transparent_50%)]" />
+        <div className="absolute top-16 right-16 w-56 h-56 rounded-full border border-white/[0.05] animate-[float_10s_ease-in-out_infinite]" />
+        <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full bg-white/[0.04]" />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <AnimateOnScroll>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.1] backdrop-blur-sm text-xs font-bold tracking-[0.15em] text-white/90 uppercase mb-5">
