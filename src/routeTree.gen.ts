@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VisionRouteImport } from './routes/vision'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as GovernanceRouteImport } from './routes/governance'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -17,11 +16,6 @@ import { Route as BeneficiariesRouteImport } from './routes/beneficiaries'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
-const VisionRoute = VisionRouteImport.update({
-  id: '/vision',
-  path: '/vision',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -60,7 +54,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
-  '/vision': typeof VisionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +62,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
-  '/vision': typeof VisionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +71,6 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
-  '/vision': typeof VisionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +81,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
-    | '/vision'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -99,7 +89,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
-    | '/vision'
   id:
     | '__root__'
     | '/'
@@ -108,7 +97,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
-    | '/vision'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,18 +106,10 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GovernanceRoute: typeof GovernanceRoute
   ReportsRoute: typeof ReportsRoute
-  VisionRoute: typeof VisionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/vision': {
-      id: '/vision'
-      path: '/vision'
-      fullPath: '/vision'
-      preLoaderRoute: typeof VisionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/reports': {
       id: '/reports'
       path: '/reports'
@@ -182,7 +162,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GovernanceRoute: GovernanceRoute,
   ReportsRoute: ReportsRoute,
-  VisionRoute: VisionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
