@@ -1,7 +1,15 @@
+import { useEffect, useState } from "react";
+
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 
 export default function GovernanceSection() {
   const pdfUrl = "/docs/bylaws.pdf";
+  const [embedUrl, setEmbedUrl] = useState(`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`);
+
+  useEffect(() => {
+    const absolutePdfUrl = `${window.location.origin}${pdfUrl}`;
+    setEmbedUrl(`https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(absolutePdfUrl)}`);
+  }, [pdfUrl]);
 
   return (
     <section className="relative overflow-hidden">
@@ -21,45 +29,64 @@ export default function GovernanceSection() {
         </div>
       </div>
 
-      <div className="py-20 bg-background">
+      <div className="py-24 bg-muted/30">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
             <AnimateOnScroll>
-              <div className="rounded-[2rem] bg-card shadow-luxury border border-border overflow-hidden gold-border-hover">
-                <div className="p-8 border-b border-border flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl gradient-primary flex items-center justify-center shadow-lg shadow-primary/15 hover:scale-110 transition-transform duration-300">
-                      <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-foreground">اللائحة الأساسية</h3>
-                      <p className="text-sm text-muted-foreground">المركز الوطني لتنمية القطاع غير الربحي</p>
-                    </div>
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl gradient-gold flex items-center justify-center shadow-gold transition-transform duration-300 hover:scale-105">
+                    <svg className="w-[22px] h-[22px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 2v4a2 2 0 002 2h4" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m9 15 2 2 4-4" />
+                    </svg>
                   </div>
-                  <a href={pdfUrl} download className="inline-flex">
-                    <button className="rounded-full gap-2 px-6 py-2.5 text-sm font-bold text-white gradient-primary shadow-elegant hover:shadow-luxury hover:scale-105 transition-all duration-300 inline-flex items-center">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                      </svg>
-                      تحميل PDF
-                    </button>
-                  </a>
+                  <h2 className="text-3xl font-bold text-foreground">اللائحة الأساسية</h2>
                 </div>
-                <div className="bg-muted/20 p-4">
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  يمكنك الاطلاع على اللائحة الأساسية للجمعية وتصفحها مباشرة من داخل الصفحة.
+                </p>
+              </div>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll>
+              <div className="rounded-[2rem] border border-border bg-card shadow-luxury overflow-hidden gold-border-hover">
+                <div className="bg-muted/20 p-3 md:p-4">
                   <iframe
-                    src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`}
-                    className="w-full rounded-xl border-0"
-                    style={{ height: 700 }}
+                    src={embedUrl}
+                    className="w-full h-[600px] md:h-[850px] rounded-2xl border-0 bg-background"
                     title="اللائحة الأساسية"
+                    loading="lazy"
+                    allow="autoplay"
+                    sandbox="allow-scripts allow-same-origin allow-popups"
                   />
-                  <div className="text-center mt-4">
-                    <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline text-sm">
-                      فتح الملف في نافذة جديدة ↗
-                    </a>
-                  </div>
                 </div>
+              </div>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll>
+              <div className="flex justify-center mt-8 flex-wrap gap-4">
+                <a
+                  href={pdfUrl}
+                  download
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl gradient-primary text-white font-semibold shadow-elegant hover:shadow-luxury transition-all duration-300 hover:-translate-y-1"
+                >
+                  <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m7 10 5 5 5-5" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 15V3" />
+                  </svg>
+                  تحميل اللائحة الأساسية
+                </a>
+                <a
+                  href={pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                >
+                  فتح الملف في نافذة جديدة ↗
+                </a>
               </div>
             </AnimateOnScroll>
           </div>
