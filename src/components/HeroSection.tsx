@@ -2,9 +2,11 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import VisionSection from "@/components/VisionSection";
 import heroBg from "@/assets/hero-bg.jpg";
+import { useI18n } from "@/lib/i18n";
 
 export default function HeroSection() {
   const bgRef = useRef<HTMLDivElement>(null);
+  const { t } = useI18n();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,17 +55,17 @@ export default function HeroSection() {
               style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards" }}
             >
               <span className="w-2 h-2 rounded-full bg-[#D4A533] animate-pulse" />
-              نحو جيل ممكّن يقود المستقبل
+              {t("hero.badge")}
             </div>
 
             <h1
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.15] mb-8"
               style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s forwards", opacity: 0 }}
             >
-              مداد لتمكين
+              {t("hero.title1")}
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#D4A533] via-[#E8C84B] to-[#f0d06e]">
-                الشباب
+                {t("hero.title2")}
               </span>
             </h1>
 
@@ -71,7 +73,7 @@ export default function HeroSection() {
               className="text-lg md:text-xl text-white/85 leading-relaxed mb-12 max-w-xl font-light"
               style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s forwards", opacity: 0 }}
             >
-              نسعى لبناء قدرات الشباب وتعزيز دورهم في التنمية المجتمعية من خلال برامج ومبادرات نوعية تصنع التغيير الإيجابي
+              {t("hero.desc")}
             </p>
 
             <div
@@ -80,12 +82,12 @@ export default function HeroSection() {
             >
               <Link to="/about">
                 <button className="rounded-full px-10 py-3.5 text-base font-bold text-white gradient-gold shadow-gold hover:shadow-xl transition-all duration-500 hover:scale-105 gold-border-hover">
-                  اكتشف المزيد
+                  {t("hero.cta1")}
                 </button>
               </Link>
               <Link to="/about">
                 <button className="rounded-full px-10 py-3.5 text-base font-bold border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:border-white/50">
-                  من نحن
+                  {t("hero.cta2")}
                 </button>
               </Link>
             </div>

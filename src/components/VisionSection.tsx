@@ -1,33 +1,17 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
+import { useI18n } from "@/lib/i18n";
 
-const values = [
-  {
-    icon: "M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18",
-    title: "الإبداع",
-    desc: "نؤمن بأن الشباب هم محرك الإبداع والتجديد في المجتمع",
-    accent: "primary",
-  },
-  {
-    icon: "M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z",
-    title: "الشراكة",
-    desc: "نبني شراكات فاعلة مع مختلف القطاعات لتحقيق أثر مستدام",
-    accent: "gold",
-  },
-  {
-    icon: "M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6",
-    title: "التميز",
-    desc: "نسعى لتقديم برامج نوعية ذات جودة عالية ومعايير متقدمة",
-    accent: "primary",
-  },
-  {
-    icon: "M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z",
-    title: "المسؤولية",
-    desc: "نتحمل مسؤوليتنا تجاه المجتمع ونعمل بشفافية ومصداقية",
-    accent: "gold",
-  },
+const valueIcons = [
+  "M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18",
+  "M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z",
+  "M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6",
+  "M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z",
 ];
+const valueKeys = ["v1", "v2", "v3", "v4"];
+const valueAccents = ["primary", "gold", "primary", "gold"];
 
 export default function VisionSection() {
+  const { t } = useI18n();
   return (
     <section className="py-24 bg-background relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-primary/[0.02] blur-[100px] -translate-x-1/2 -translate-y-1/2" />
@@ -45,13 +29,11 @@ export default function VisionSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-foreground tracking-tight">الرؤية</h3>
+                <h3 className="text-xl font-bold text-foreground tracking-tight">{t("vision.visionLabel")}</h3>
               </div>
               <div className="px-8 py-7">
-                <h4 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight">شباب ممكّن يقود التنمية</h4>
-                <p className="text-muted-foreground leading-relaxed text-base">
-                  أن نكون المنظمة الرائدة في تمكين الشباب وبناء قدراتهم ليكونوا قادة التغيير الإيجابي في مجتمعاتهم.
-                </p>
+                <h4 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight">{t("vision.visionTitle")}</h4>
+                <p className="text-muted-foreground leading-relaxed text-base">{t("vision.visionDesc")}</p>
               </div>
             </div>
           </AnimateOnScroll>
@@ -64,13 +46,11 @@ export default function VisionSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-foreground tracking-tight">الرسالة</h3>
+                <h3 className="text-xl font-bold text-foreground tracking-tight">{t("vision.missionLabel")}</h3>
               </div>
               <div className="px-8 py-7">
-                <h4 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight">نبني جيلاً واعياً وقادراً</h4>
-                <p className="text-muted-foreground leading-relaxed text-base">
-                  تقديم برامج ومبادرات نوعية تسهم في استثمار طاقات الشباب وتعزيز قدراتهم على الاعتماد على الذات والمشاركة الفاعلة في بناء المجتمع.
-                </p>
+                <h4 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight">{t("vision.missionTitle")}</h4>
+                <p className="text-muted-foreground leading-relaxed text-base">{t("vision.missionDesc")}</p>
               </div>
             </div>
           </AnimateOnScroll>
@@ -80,27 +60,27 @@ export default function VisionSection() {
         <AnimateOnScroll>
           <div className="text-center mb-16">
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gold/8 text-xs font-bold tracking-[0.15em] text-gold uppercase mb-4">
-              ✦ ما يميزنا
+              {t("vision.valuesTag")}
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">قيمنا</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">{t("vision.valuesTitle")}</h2>
           </div>
         </AnimateOnScroll>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-7 max-w-6xl mx-auto">
-          {values.map((v, i) => (
-            <AnimateOnScroll key={v.title} delay={i * 0.1}>
+          {valueKeys.map((vk, i) => (
+            <AnimateOnScroll key={vk} delay={i * 0.1}>
               <div className="p-8 rounded-[2rem] bg-card shadow-card border border-border hover-lift gold-border-hover text-center group cursor-pointer">
                 <div
                   className={`w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 ${
-                    v.accent === "gold" ? "gradient-gold shadow-gold/20" : "gradient-primary shadow-primary/20"
+                    valueAccents[i] === "gold" ? "gradient-gold shadow-gold/20" : "gradient-primary shadow-primary/20"
                   }`}
                 >
                   <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d={v.icon} />
+                    <path strokeLinecap="round" strokeLinejoin="round" d={valueIcons[i]} />
                   </svg>
                 </div>
-                <h4 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">{v.title}</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+                <h4 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">{t(`vision.${vk}Title`)}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t(`vision.${vk}Desc`)}</p>
               </div>
             </AnimateOnScroll>
           ))}
