@@ -12,46 +12,70 @@ export default function HeroSection() {
         width={1920}
         height={1080}
       />
-      <div className="absolute inset-0 bg-gradient-to-l from-[#0d3d4a]/95 via-[#1C6C81]/80 to-[#2A8DA8]/65" />
-      
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-20 w-72 h-72 rounded-full border border-white/5" />
-      <div className="absolute bottom-32 left-40 w-40 h-40 rounded-full border border-white/5" />
-      <div className="absolute top-1/3 right-10 w-2 h-24 rounded-full bg-gradient-to-b from-[#E8B84B]/40 to-transparent" />
+
+      {/* Multi-layer overlay */}
+      <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/98 via-[#1C6C81]/85 to-[#2A8DA8]/60" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_oklch(0.72_0.14_75_/_8%)_0%,_transparent_50%)]" />
+
+      {/* Decorative geometry */}
+      <div className="absolute top-20 left-16 w-80 h-80 rounded-full border border-white/[0.04]" />
+      <div className="absolute top-32 left-28 w-56 h-56 rounded-full border border-white/[0.03]" />
+      <div className="absolute bottom-40 left-1/3 w-48 h-48 rounded-full border border-white/[0.03]" />
+      <div className="absolute top-1/4 right-8 w-[3px] h-28 rounded-full bg-gradient-to-b from-[#D4A533]/50 to-transparent" />
+      <div className="absolute bottom-1/3 right-16 w-[3px] h-20 rounded-full bg-gradient-to-b from-white/10 to-transparent" />
+
+      {/* Floating orbs */}
+      <div className="absolute top-[15%] left-[10%] w-3 h-3 rounded-full bg-gold/30" style={{ animation: "float 6s ease-in-out infinite" }} />
+      <div className="absolute top-[40%] left-[25%] w-2 h-2 rounded-full bg-white/20" style={{ animation: "float 8s ease-in-out infinite 1s" }} />
+      <div className="absolute bottom-[25%] left-[15%] w-2 h-2 rounded-full bg-gold/20" style={{ animation: "float 7s ease-in-out infinite 2s" }} />
 
       <div className="relative z-10 container mx-auto px-4 py-32">
-        <div className="max-w-2xl">
-          <span
-            className="inline-block px-5 py-2 rounded-full text-xs font-bold tracking-wider gradient-gold text-white mb-8 shadow-lg shadow-[#C5952A]/20"
-            style={{ animation: "fadeUp 0.6s ease-out forwards" }}
+        <div className="max-w-3xl">
+          <div
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-[0.15em] text-white/95 mb-10 border border-[#D4A533]/30 bg-[#D4A533]/10 backdrop-blur-sm"
+            style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards" }}
           >
-            نحو جيل ممكّن
-          </span>
+            <span className="w-2 h-2 rounded-full bg-[#D4A533] animate-pulse" />
+            نحو جيل ممكّن يقود المستقبل
+          </div>
+
           <h1
-            className="text-5xl md:text-7xl font-bold text-white leading-tight mb-8"
-            style={{ animation: "fadeUp 0.6s ease-out 0.15s forwards", opacity: 0 }}
+            className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.15] mb-8"
+            style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s forwards", opacity: 0 }}
           >
             مداد لتمكين
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#E8B84B] to-[#f0cb6e]">الشباب</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#D4A533] via-[#E8C84B] to-[#f0d06e]">
+              الشباب
+            </span>
           </h1>
+
           <p
-            className="text-lg md:text-xl text-white/90 leading-relaxed mb-10 max-w-lg"
-            style={{ animation: "fadeUp 0.6s ease-out 0.3s forwards", opacity: 0 }}
+            className="text-lg md:text-xl text-white/85 leading-relaxed mb-12 max-w-xl font-light"
+            style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s forwards", opacity: 0 }}
           >
-            نسعى لبناء قدرات الشباب وتعزيز دورهم في التنمية المجتمعية من خلال برامج ومبادرات نوعية
+            نسعى لبناء قدرات الشباب وتعزيز دورهم في التنمية المجتمعية من خلال برامج ومبادرات نوعية تصنع التغيير الإيجابي
           </p>
+
           <div
-            className="flex flex-wrap gap-4"
-            style={{ animation: "fadeUp 0.6s ease-out 0.45s forwards", opacity: 0 }}
+            className="flex flex-wrap gap-5"
+            style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s forwards", opacity: 0 }}
           >
             <Link to="/vision">
-              <Button variant="gradient-gold" size="lg" className="rounded-full px-10 text-base shadow-lg shadow-[#C5952A]/25 hover:shadow-xl hover:shadow-[#C5952A]/30 transition-shadow">
-                اكتشف المزيد
+              <Button
+                variant="gradient-gold"
+                size="lg"
+                className="rounded-full px-10 text-base shadow-gold hover:shadow-xl transition-all duration-500 h-12"
+              >
+                اكتشف رؤيتنا
               </Button>
             </Link>
             <Link to="/about">
-              <Button variant="outline" size="lg" className="rounded-full px-10 text-base border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-10 text-base border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm h-12 transition-all duration-300"
+              >
                 من نحن
               </Button>
             </Link>
@@ -59,8 +83,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/50 to-transparent z-10" />
     </section>
   );
 }
