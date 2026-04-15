@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VisionRouteImport } from './routes/vision'
+import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as GovernanceRouteImport } from './routes/governance'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BeneficiariesRouteImport } from './routes/beneficiaries'
@@ -19,6 +20,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const VisionRoute = VisionRouteImport.update({
   id: '/vision',
   path: '/vision',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GovernanceRoute = GovernanceRouteImport.update({
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/beneficiaries': typeof BeneficiariesRoute
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
+  '/reports': typeof ReportsRoute
   '/vision': typeof VisionRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/beneficiaries': typeof BeneficiariesRoute
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
+  '/reports': typeof ReportsRoute
   '/vision': typeof VisionRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/beneficiaries': typeof BeneficiariesRoute
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
+  '/reports': typeof ReportsRoute
   '/vision': typeof VisionRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/beneficiaries'
     | '/contact'
     | '/governance'
+    | '/reports'
     | '/vision'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/beneficiaries' | '/contact' | '/governance' | '/vision'
+  to:
+    | '/'
+    | '/about'
+    | '/beneficiaries'
+    | '/contact'
+    | '/governance'
+    | '/reports'
+    | '/vision'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/beneficiaries'
     | '/contact'
     | '/governance'
+    | '/reports'
     | '/vision'
   fileRoutesById: FileRoutesById
 }
@@ -99,6 +117,7 @@ export interface RootRouteChildren {
   BeneficiariesRoute: typeof BeneficiariesRoute
   ContactRoute: typeof ContactRoute
   GovernanceRoute: typeof GovernanceRoute
+  ReportsRoute: typeof ReportsRoute
   VisionRoute: typeof VisionRoute
 }
 
@@ -109,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/vision'
       fullPath: '/vision'
       preLoaderRoute: typeof VisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/governance': {
@@ -155,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   BeneficiariesRoute: BeneficiariesRoute,
   ContactRoute: ContactRoute,
   GovernanceRoute: GovernanceRoute,
+  ReportsRoute: ReportsRoute,
   VisionRoute: VisionRoute,
 }
 export const routeTree = rootRouteImport
