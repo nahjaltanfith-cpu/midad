@@ -1,15 +1,7 @@
-import { useEffect, useState } from "react";
-
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 
 export default function GovernanceSection() {
   const pdfUrl = "/docs/bylaws.pdf";
-  const [embedUrl, setEmbedUrl] = useState(`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`);
-
-  useEffect(() => {
-    const absolutePdfUrl = `${window.location.origin}${pdfUrl}`;
-    setEmbedUrl(`https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(absolutePdfUrl)}`);
-  }, [pdfUrl]);
 
   return (
     <section className="relative overflow-hidden">
@@ -54,12 +46,11 @@ export default function GovernanceSection() {
               <div className="rounded-[2rem] border border-border bg-card shadow-luxury overflow-hidden gold-border-hover">
                 <div className="bg-muted/20 p-3 md:p-4">
                   <iframe
-                    src={embedUrl}
-                    className="w-full h-[600px] md:h-[850px] rounded-2xl border-0 bg-background"
+                    src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1&view=FitH`}
+                    className="w-full h-[600px] md:h-[850px] rounded-2xl border-0 bg-white"
                     title="اللائحة الأساسية"
                     loading="lazy"
-                    allow="autoplay"
-                    sandbox="allow-scripts allow-same-origin allow-popups"
+                    allow="autoplay; fullscreen"
                   />
                 </div>
               </div>
