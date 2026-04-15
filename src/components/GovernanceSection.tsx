@@ -38,7 +38,7 @@ export default function GovernanceSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="m9 15 2 2 4-4" />
                     </svg>
                   </div>
-                  <h2 className="text-3xl font-bold text-foreground">اللائحة الأساسية</h2>
+                  <h2 className="text-3xl font-bold text-foreground">{t("governance.docTitle")}</h2>
                 </div>
                 <p className="text-muted-foreground max-w-2xl mx-auto">{t("governance.docDesc")}</p>
               </div>
@@ -70,7 +70,7 @@ export default function GovernanceSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="m7 10 5 5 5-5" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 15V3" />
                   </svg>
-                  تحميل اللائحة الأساسية
+                  {t("governance.download")}
                 </a>
                 <a
                   href={pdfUrl}
