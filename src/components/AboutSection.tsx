@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
+
 const goals = [
   {
     icon: (
@@ -68,79 +71,129 @@ const assemblyMembers = [
 ];
 
 export default function AboutSection() {
+  const [showMap, setShowMap] = useState(false);
+
   return (
-    <section id="about" className="py-24 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section id="about" className="py-28 bg-muted/30 relative overflow-hidden">
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] rounded-full bg-primary/3 blur-3xl translate-x-1/2 -translate-y-1/2" />
+
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="text-xs font-bold tracking-widest text-primary uppercase mb-2 block">تعرف علينا</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">من نحن</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            جمعية أهلية مقرها أبها بمنطقة عسير، تُعنى بتمكين الشباب وبناء قدراتهم
-          </p>
-        </div>
+        <AnimateOnScroll>
+          <div className="text-center mb-20">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-xs font-bold tracking-widest text-primary uppercase mb-3">تعرف علينا</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">من نحن</h2>
+            <div className="w-20 h-1 mx-auto rounded-full gradient-gold" />
+            <p className="text-muted-foreground max-w-2xl mx-auto mt-6 text-lg">
+              جمعية أهلية مقرها أبها بمنطقة عسير، تُعنى بتمكين الشباب وبناء قدراتهم
+            </p>
+          </div>
+        </AnimateOnScroll>
 
         {/* Goals */}
-        <div className="mb-20">
-          <h3 className="text-2xl font-bold text-foreground mb-8 text-center">أهدافنا</h3>
+        <div className="mb-24">
+          <AnimateOnScroll>
+            <h3 className="text-2xl font-bold text-foreground mb-10 text-center">أهدافنا</h3>
+          </AnimateOnScroll>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {goals.map((g, i) => (
-              <div key={i} className="flex gap-4 p-5 rounded-xl bg-card shadow-card border border-border hover-lift">
-                <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center text-white shrink-0">
-                  {g.icon}
+              <AnimateOnScroll key={i} delay={i * 0.08}>
+                <div className="flex gap-4 p-6 rounded-2xl bg-card shadow-card border border-border hover-lift group">
+                  <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/15 group-hover:scale-110 transition-transform duration-300">
+                    {g.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-foreground mb-1.5">{g.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{g.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1">{g.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{g.desc}</p>
-                </div>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
 
         {/* Board of Directors */}
-        <div className="mb-20">
-          <h3 className="text-2xl font-bold text-foreground mb-8 text-center">مجلس الإدارة</h3>
+        <div className="mb-24">
+          <AnimateOnScroll>
+            <h3 className="text-2xl font-bold text-foreground mb-10 text-center">مجلس الإدارة</h3>
+          </AnimateOnScroll>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {boardMembers.map((m) => (
-              <div key={m.name} className="p-6 rounded-2xl bg-card shadow-card border border-border text-center hover-lift">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full gradient-primary flex items-center justify-center text-white text-2xl font-bold">
-                  {m.name.charAt(0)}
+            {boardMembers.map((m, i) => (
+              <AnimateOnScroll key={m.name} delay={i * 0.08}>
+                <div className="p-6 rounded-3xl bg-card shadow-card border border-border text-center hover-lift group">
+                  <div className="w-22 h-22 mx-auto mb-4 rounded-full gradient-primary flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-primary/20 group-hover:shadow-xl group-hover:shadow-primary/30 transition-shadow duration-300" style={{ width: 88, height: 88 }}>
+                    {m.name.charAt(0)}
+                  </div>
+                  <h4 className="font-bold text-foreground text-sm mb-1">{m.name}</h4>
+                  <span className="text-xs text-primary font-semibold bg-primary/8 px-3 py-1 rounded-full inline-block">{m.role}</span>
                 </div>
-                <h4 className="font-bold text-foreground text-sm mb-1">{m.name}</h4>
-                <span className="text-xs text-primary font-medium">{m.role}</span>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
 
         {/* General Assembly */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-foreground mb-8 text-center">أعضاء الجمعية العمومية</h3>
+        <div className="mb-16">
+          <AnimateOnScroll>
+            <h3 className="text-2xl font-bold text-foreground mb-10 text-center">أعضاء الجمعية العمومية</h3>
+          </AnimateOnScroll>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {assemblyMembers.map((name, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 p-3 rounded-xl bg-card shadow-sm border border-border"
-              >
-                <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold shrink-0">
-                  {i + 1}
+              <AnimateOnScroll key={i} delay={i * 0.05}>
+                <div className="flex items-center gap-3 p-4 rounded-xl bg-card shadow-sm border border-border hover:shadow-card hover:border-primary/20 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold shrink-0">
+                    {i + 1}
+                  </div>
+                  <span className="text-sm font-medium text-foreground">{name}</span>
                 </div>
-                <span className="text-sm font-medium text-foreground">{name}</span>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
 
-        {/* Location */}
-        <div className="text-center p-8 rounded-2xl bg-card shadow-card border border-border">
-          <svg className="w-10 h-10 mx-auto mb-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-          </svg>
-          <h4 className="font-bold text-foreground mb-1">المقر الرئيسي</h4>
-          <p className="text-muted-foreground">مدينة أبها، منطقة عسير</p>
-        </div>
+        {/* Location - Clickable Map */}
+        <AnimateOnScroll>
+          <div
+            className="relative rounded-3xl overflow-hidden shadow-elegant border border-border cursor-pointer group"
+            onClick={() => setShowMap(!showMap)}
+          >
+            {!showMap ? (
+              <div className="p-10 bg-card text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                  <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold text-foreground mb-2">المقر الرئيسي</h4>
+                <p className="text-muted-foreground mb-3">مدينة أبها، منطقة عسير</p>
+                <span className="inline-flex items-center gap-2 text-sm text-primary font-semibold group-hover:gap-3 transition-all duration-300">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" /></svg>
+                  اضغط لعرض الخريطة
+                </span>
+              </div>
+            ) : (
+              <div className="relative">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60741.79652803654!2d42.468839!3d18.216324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15fb57b0e15e2725%3A0x1c8e3c6f64cf84b5!2sAbha%2C%20Saudi%20Arabia!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="موقع أبها"
+                />
+                <button
+                  onClick={(e) => { e.stopPropagation(); setShowMap(false); }}
+                  className="absolute top-4 left-4 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/90 transition-colors"
+                >
+                  <svg className="w-5 h-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+            )}
+          </div>
+        </AnimateOnScroll>
       </div>
     </section>
   );

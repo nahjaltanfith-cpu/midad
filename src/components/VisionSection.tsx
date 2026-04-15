@@ -1,3 +1,5 @@
+import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
+
 const values = [
   {
     icon: (
@@ -39,54 +41,71 @@ const values = [
 
 export default function VisionSection() {
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Vision & Mission */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20">
-          <div className="relative p-8 rounded-2xl overflow-hidden gradient-primary shadow-elegant">
-            <div className="absolute top-0 left-0 w-32 h-32 rounded-full bg-white/10 -translate-x-1/2 -translate-y-1/2" />
-            <div className="relative z-10">
-              <span className="text-xs font-bold tracking-widest text-white/70 uppercase mb-2 block">الرؤية</span>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                شباب ممكّن يقود التنمية
-              </h3>
-              <p className="text-white/85 leading-relaxed">
-                أن نكون المنظمة الرائدة في تمكين الشباب وبناء قدراتهم ليكونوا قادة التغيير الإيجابي في مجتمعاتهم
-              </p>
-            </div>
-          </div>
+    <section className="py-28 bg-background relative overflow-hidden">
+      {/* Decorative bg elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 rounded-full bg-primary/3 blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-gold/5 blur-3xl translate-x-1/3 translate-y-1/3" />
 
-          <div className="relative p-8 rounded-2xl overflow-hidden bg-card shadow-card border border-border">
-            <div className="absolute bottom-0 right-0 w-40 h-40 rounded-full bg-primary/5 translate-x-1/3 translate-y-1/3" />
-            <div className="relative z-10">
-              <span className="text-xs font-bold tracking-widest text-primary uppercase mb-2 block">الرسالة</span>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                نبني جيلاً واعياً
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                تقديم برامج ومبادرات نوعية تسهم في استثمار طاقات الشباب وتعزيز قدراتهم على الاعتماد على الذات والمشاركة الفاعلة في بناء المجتمع
-              </p>
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Vision & Mission */}
+        <div className="grid md:grid-cols-2 gap-8 mb-24">
+          <AnimateOnScroll>
+            <div className="relative p-10 rounded-3xl overflow-hidden gradient-primary shadow-elegant group">
+              <div className="absolute top-0 left-0 w-40 h-40 rounded-full bg-white/10 -translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-700" />
+              <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-white/5 translate-x-1/3 translate-y-1/3" />
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-xs font-bold tracking-widest text-white/90 uppercase mb-4">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                  الرؤية
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                  شباب ممكّن يقود التنمية
+                </h3>
+                <p className="text-white/85 leading-relaxed text-lg">
+                  أن نكون المنظمة الرائدة في تمكين الشباب وبناء قدراتهم ليكونوا قادة التغيير الإيجابي في مجتمعاتهم
+                </p>
+              </div>
             </div>
-          </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll delay={0.15}>
+            <div className="relative p-10 rounded-3xl overflow-hidden bg-card shadow-card border border-border group hover:shadow-elegant transition-shadow duration-500">
+              <div className="absolute bottom-0 right-0 w-48 h-48 rounded-full bg-primary/5 translate-x-1/3 translate-y-1/3 group-hover:scale-125 transition-transform duration-700" />
+              <div className="absolute top-4 left-4 w-2 h-16 rounded-full gradient-gold opacity-60" />
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-xs font-bold tracking-widest text-primary uppercase mb-4">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" /></svg>
+                  الرسالة
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  نبني جيلاً واعياً
+                </h3>
+                <p className="text-muted-foreground leading-relaxed text-lg">
+                  تقديم برامج ومبادرات نوعية تسهم في استثمار طاقات الشباب وتعزيز قدراتهم على الاعتماد على الذات والمشاركة الفاعلة في بناء المجتمع
+                </p>
+              </div>
+            </div>
+          </AnimateOnScroll>
         </div>
 
         {/* Values */}
-        <div className="text-center mb-12">
-          <span className="text-xs font-bold tracking-widest text-primary uppercase mb-2 block">ما يميزنا</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">قيمنا</h2>
-        </div>
+        <AnimateOnScroll>
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 text-xs font-bold tracking-widest text-gold uppercase mb-3">✦ ما يميزنا</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">قيمنا</h2>
+          </div>
+        </AnimateOnScroll>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {values.map((v, i) => (
-            <div
-              key={v.title}
-              className={`p-6 rounded-2xl bg-card shadow-card border border-border hover-lift text-center animate-fade-up animate-delay-${(i + 1) * 100}`}
-            >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-xl gradient-primary flex items-center justify-center text-white">
-                {v.icon}
+            <AnimateOnScroll key={v.title} delay={i * 0.1}>
+              <div className="p-7 rounded-3xl bg-card shadow-card border border-border hover-lift text-center group">
+                <div className="w-18 h-18 mx-auto mb-5 rounded-2xl gradient-primary flex items-center justify-center text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300" style={{ width: 72, height: 72 }}>
+                  {v.icon}
+                </div>
+                <h4 className="text-lg font-bold text-foreground mb-2">{v.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
               </div>
-              <h4 className="text-lg font-bold text-foreground mb-2">{v.title}</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>
