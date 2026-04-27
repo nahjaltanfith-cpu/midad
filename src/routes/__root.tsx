@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import LoadingScreen from "@/components/LoadingScreen";
 import { Footer } from "@/components/ContactSection";
+import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 
@@ -76,12 +77,22 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin-2030");
   const [showStartupLoading, setShowStartupLoading] = useState(
-    () => location.pathname === "/",
+    () => location.pathname === "/" && !isAdmin,
   );
 
   if (showStartupLoading) {
     return <LoadingScreen onComplete={() => setShowStartupLoading(false)} />;
+  }
+
+  if (isAdmin) {
+    return (
+      <>
+        <Outlet />
+        <Toaster richColors position="top-center" />
+      </>
+    );
   }
 
   return (
@@ -91,6 +102,7 @@ function RootComponent() {
         <Outlet />
       </PageTransition>
       <Footer />
+      <Toaster richColors position="top-center" />
     </>
   );
 }
