@@ -33,7 +33,7 @@ export default function BeneficiariesSection() {
     <section className="relative overflow-hidden">
       {/* Page Header */}
       <div className="relative overflow-hidden py-32">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerBeneficiaries})` }} />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerUrl})` }} />
         <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/85 via-[#1C6C81]/70 to-[#2A8DA8]/50" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.72_0.14_75_/_10%)_0%,_transparent_50%)]" />
         <div className="absolute bottom-10 left-20 w-40 h-40 rounded-full border border-white/[0.05] animate-[float_9s_ease-in-out_infinite]" />
@@ -74,8 +74,8 @@ export default function BeneficiariesSection() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{t(`beneficiaries.i${i + 1}Title`)}</h4>
-                    <p className="text-muted-foreground leading-relaxed">{t(`beneficiaries.i${i + 1}Desc`)}</p>
+                    <h4 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{item.title}</h4>
+                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </AnimateOnScroll>
