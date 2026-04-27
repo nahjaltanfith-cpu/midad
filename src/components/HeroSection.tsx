@@ -28,7 +28,7 @@ export default function HeroSection() {
           ref={bgRef}
           className="absolute inset-0 will-change-transform"
           style={{
-            backgroundImage: `url(${heroBg})`,
+            backgroundImage: `url(${heroBgUrl})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             transform: "scale(1.1)",
