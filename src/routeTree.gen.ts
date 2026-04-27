@@ -16,6 +16,8 @@ import { Route as BeneficiariesRouteImport } from './routes/beneficiaries'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Admin2030IndexRouteImport } from './routes/admin-2030.index'
+import { Route as Admin2030DashboardRouteImport } from './routes/admin-2030.dashboard'
+import { Route as Admin2030DashboardIndexRouteImport } from './routes/admin-2030.dashboard.index'
 
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
@@ -52,6 +54,16 @@ const Admin2030IndexRoute = Admin2030IndexRouteImport.update({
   path: '/admin-2030/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Admin2030DashboardRoute = Admin2030DashboardRouteImport.update({
+  id: '/admin-2030/dashboard',
+  path: '/admin-2030/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Admin2030DashboardIndexRoute = Admin2030DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => Admin2030DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,7 +72,9 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
+  '/admin-2030/dashboard': typeof Admin2030DashboardRouteWithChildren
   '/admin-2030/': typeof Admin2030IndexRoute
+  '/admin-2030/dashboard/': typeof Admin2030DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +84,7 @@ export interface FileRoutesByTo {
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
   '/admin-2030': typeof Admin2030IndexRoute
+  '/admin-2030/dashboard': typeof Admin2030DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +94,9 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
+  '/admin-2030/dashboard': typeof Admin2030DashboardRouteWithChildren
   '/admin-2030/': typeof Admin2030IndexRoute
+  '/admin-2030/dashboard/': typeof Admin2030DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +107,9 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
+    | '/admin-2030/dashboard'
     | '/admin-2030/'
+    | '/admin-2030/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +119,7 @@ export interface FileRouteTypes {
     | '/governance'
     | '/reports'
     | '/admin-2030'
+    | '/admin-2030/dashboard'
   id:
     | '__root__'
     | '/'
@@ -108,7 +128,9 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
+    | '/admin-2030/dashboard'
     | '/admin-2030/'
+    | '/admin-2030/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,6 +140,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GovernanceRoute: typeof GovernanceRoute
   ReportsRoute: typeof ReportsRoute
+  Admin2030DashboardRoute: typeof Admin2030DashboardRouteWithChildren
   Admin2030IndexRoute: typeof Admin2030IndexRoute
 }
 
@@ -172,8 +195,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Admin2030IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-2030/dashboard': {
+      id: '/admin-2030/dashboard'
+      path: '/admin-2030/dashboard'
+      fullPath: '/admin-2030/dashboard'
+      preLoaderRoute: typeof Admin2030DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-2030/dashboard/': {
+      id: '/admin-2030/dashboard/'
+      path: '/'
+      fullPath: '/admin-2030/dashboard/'
+      preLoaderRoute: typeof Admin2030DashboardIndexRouteImport
+      parentRoute: typeof Admin2030DashboardRoute
+    }
   }
 }
+
+interface Admin2030DashboardRouteChildren {
+  Admin2030DashboardIndexRoute: typeof Admin2030DashboardIndexRoute
+}
+
+const Admin2030DashboardRouteChildren: Admin2030DashboardRouteChildren = {
+  Admin2030DashboardIndexRoute: Admin2030DashboardIndexRoute,
+}
+
+const Admin2030DashboardRouteWithChildren =
+  Admin2030DashboardRoute._addFileChildren(Admin2030DashboardRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -182,6 +230,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GovernanceRoute: GovernanceRoute,
   ReportsRoute: ReportsRoute,
+  Admin2030DashboardRoute: Admin2030DashboardRouteWithChildren,
   Admin2030IndexRoute: Admin2030IndexRoute,
 }
 export const routeTree = rootRouteImport
