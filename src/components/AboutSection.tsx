@@ -133,8 +133,8 @@ export default function AboutSection() {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{t(`about.g${i + 1}Title`)}</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{t(`about.g${i + 1}Desc`)}</p>
+                      <h4 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{g.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{g.desc}</p>
                     </div>
                   </div>
                 </AnimateOnScroll>
