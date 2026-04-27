@@ -69,7 +69,27 @@ export default function GovernanceSection() {
       <div className="py-24 bg-muted/30 relative">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
-            
+
+            {items.length > 1 && (
+              <AnimateOnScroll>
+                <div className="flex flex-wrap justify-center gap-3 mb-8">
+                  {items.map(it => (
+                    <button
+                      key={it.id}
+                      onClick={() => setActiveId(it.id)}
+                      className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                        active?.id === it.id
+                          ? "gradient-primary text-white shadow-lg"
+                          : "bg-card border border-border text-foreground hover:bg-muted/50"
+                      }`}
+                    >
+                      {(lang === "en" ? it.title_en : it.title_ar) || it.title_ar}
+                    </button>
+                  ))}
+                </div>
+              </AnimateOnScroll>
+            )}
+
             <AnimateOnScroll>
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-4 mb-6">
@@ -78,7 +98,7 @@ export default function GovernanceSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                     </svg>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{t("governance.docTitle")}</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{docTitle}</h2>
                 </div>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">{t("governance.docDesc")}</p>
               </div>
