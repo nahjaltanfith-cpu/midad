@@ -19,6 +19,8 @@ import { Route as Admin2030IndexRouteImport } from './routes/admin-2030.index'
 import { Route as Admin2030DashboardRouteImport } from './routes/admin-2030.dashboard'
 import { Route as Admin2030DashboardIndexRouteImport } from './routes/admin-2030.dashboard.index'
 import { Route as Admin2030DashboardValuesRouteImport } from './routes/admin-2030.dashboard.values'
+import { Route as Admin2030DashboardReportsRouteImport } from './routes/admin-2030.dashboard.reports'
+import { Route as Admin2030DashboardMessagesRouteImport } from './routes/admin-2030.dashboard.messages'
 import { Route as Admin2030DashboardInitiativesRouteImport } from './routes/admin-2030.dashboard.initiatives'
 import { Route as Admin2030DashboardImagesRouteImport } from './routes/admin-2030.dashboard.images'
 import { Route as Admin2030DashboardGoalsRouteImport } from './routes/admin-2030.dashboard.goals'
@@ -77,6 +79,18 @@ const Admin2030DashboardValuesRoute =
     path: '/values',
     getParentRoute: () => Admin2030DashboardRoute,
   } as any)
+const Admin2030DashboardReportsRoute =
+  Admin2030DashboardReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => Admin2030DashboardRoute,
+  } as any)
+const Admin2030DashboardMessagesRoute =
+  Admin2030DashboardMessagesRouteImport.update({
+    id: '/messages',
+    path: '/messages',
+    getParentRoute: () => Admin2030DashboardRoute,
+  } as any)
 const Admin2030DashboardInitiativesRoute =
   Admin2030DashboardInitiativesRouteImport.update({
     id: '/initiatives',
@@ -127,6 +141,8 @@ export interface FileRoutesByFullPath {
   '/admin-2030/dashboard/goals': typeof Admin2030DashboardGoalsRoute
   '/admin-2030/dashboard/images': typeof Admin2030DashboardImagesRoute
   '/admin-2030/dashboard/initiatives': typeof Admin2030DashboardInitiativesRoute
+  '/admin-2030/dashboard/messages': typeof Admin2030DashboardMessagesRoute
+  '/admin-2030/dashboard/reports': typeof Admin2030DashboardReportsRoute
   '/admin-2030/dashboard/values': typeof Admin2030DashboardValuesRoute
   '/admin-2030/dashboard/': typeof Admin2030DashboardIndexRoute
 }
@@ -144,6 +160,8 @@ export interface FileRoutesByTo {
   '/admin-2030/dashboard/goals': typeof Admin2030DashboardGoalsRoute
   '/admin-2030/dashboard/images': typeof Admin2030DashboardImagesRoute
   '/admin-2030/dashboard/initiatives': typeof Admin2030DashboardInitiativesRoute
+  '/admin-2030/dashboard/messages': typeof Admin2030DashboardMessagesRoute
+  '/admin-2030/dashboard/reports': typeof Admin2030DashboardReportsRoute
   '/admin-2030/dashboard/values': typeof Admin2030DashboardValuesRoute
   '/admin-2030/dashboard': typeof Admin2030DashboardIndexRoute
 }
@@ -163,6 +181,8 @@ export interface FileRoutesById {
   '/admin-2030/dashboard/goals': typeof Admin2030DashboardGoalsRoute
   '/admin-2030/dashboard/images': typeof Admin2030DashboardImagesRoute
   '/admin-2030/dashboard/initiatives': typeof Admin2030DashboardInitiativesRoute
+  '/admin-2030/dashboard/messages': typeof Admin2030DashboardMessagesRoute
+  '/admin-2030/dashboard/reports': typeof Admin2030DashboardReportsRoute
   '/admin-2030/dashboard/values': typeof Admin2030DashboardValuesRoute
   '/admin-2030/dashboard/': typeof Admin2030DashboardIndexRoute
 }
@@ -183,6 +203,8 @@ export interface FileRouteTypes {
     | '/admin-2030/dashboard/goals'
     | '/admin-2030/dashboard/images'
     | '/admin-2030/dashboard/initiatives'
+    | '/admin-2030/dashboard/messages'
+    | '/admin-2030/dashboard/reports'
     | '/admin-2030/dashboard/values'
     | '/admin-2030/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -200,6 +222,8 @@ export interface FileRouteTypes {
     | '/admin-2030/dashboard/goals'
     | '/admin-2030/dashboard/images'
     | '/admin-2030/dashboard/initiatives'
+    | '/admin-2030/dashboard/messages'
+    | '/admin-2030/dashboard/reports'
     | '/admin-2030/dashboard/values'
     | '/admin-2030/dashboard'
   id:
@@ -218,6 +242,8 @@ export interface FileRouteTypes {
     | '/admin-2030/dashboard/goals'
     | '/admin-2030/dashboard/images'
     | '/admin-2030/dashboard/initiatives'
+    | '/admin-2030/dashboard/messages'
+    | '/admin-2030/dashboard/reports'
     | '/admin-2030/dashboard/values'
     | '/admin-2030/dashboard/'
   fileRoutesById: FileRoutesById
@@ -305,6 +331,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Admin2030DashboardValuesRouteImport
       parentRoute: typeof Admin2030DashboardRoute
     }
+    '/admin-2030/dashboard/reports': {
+      id: '/admin-2030/dashboard/reports'
+      path: '/reports'
+      fullPath: '/admin-2030/dashboard/reports'
+      preLoaderRoute: typeof Admin2030DashboardReportsRouteImport
+      parentRoute: typeof Admin2030DashboardRoute
+    }
+    '/admin-2030/dashboard/messages': {
+      id: '/admin-2030/dashboard/messages'
+      path: '/messages'
+      fullPath: '/admin-2030/dashboard/messages'
+      preLoaderRoute: typeof Admin2030DashboardMessagesRouteImport
+      parentRoute: typeof Admin2030DashboardRoute
+    }
     '/admin-2030/dashboard/initiatives': {
       id: '/admin-2030/dashboard/initiatives'
       path: '/initiatives'
@@ -357,6 +397,8 @@ interface Admin2030DashboardRouteChildren {
   Admin2030DashboardGoalsRoute: typeof Admin2030DashboardGoalsRoute
   Admin2030DashboardImagesRoute: typeof Admin2030DashboardImagesRoute
   Admin2030DashboardInitiativesRoute: typeof Admin2030DashboardInitiativesRoute
+  Admin2030DashboardMessagesRoute: typeof Admin2030DashboardMessagesRoute
+  Admin2030DashboardReportsRoute: typeof Admin2030DashboardReportsRoute
   Admin2030DashboardValuesRoute: typeof Admin2030DashboardValuesRoute
   Admin2030DashboardIndexRoute: typeof Admin2030DashboardIndexRoute
 }
@@ -368,6 +410,8 @@ const Admin2030DashboardRouteChildren: Admin2030DashboardRouteChildren = {
   Admin2030DashboardGoalsRoute: Admin2030DashboardGoalsRoute,
   Admin2030DashboardImagesRoute: Admin2030DashboardImagesRoute,
   Admin2030DashboardInitiativesRoute: Admin2030DashboardInitiativesRoute,
+  Admin2030DashboardMessagesRoute: Admin2030DashboardMessagesRoute,
+  Admin2030DashboardReportsRoute: Admin2030DashboardReportsRoute,
   Admin2030DashboardValuesRoute: Admin2030DashboardValuesRoute,
   Admin2030DashboardIndexRoute: Admin2030DashboardIndexRoute,
 }
