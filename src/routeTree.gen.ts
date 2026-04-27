@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BeneficiariesRouteImport } from './routes/beneficiaries'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as Admin2030IndexRouteImport } from './routes/admin-2030.index'
 
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
@@ -46,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Admin2030IndexRoute = Admin2030IndexRouteImport.update({
+  id: '/admin-2030/',
+  path: '/admin-2030/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
+  '/admin-2030/': typeof Admin2030IndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
+  '/admin-2030': typeof Admin2030IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
+  '/admin-2030/': typeof Admin2030IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
+    | '/admin-2030/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
+    | '/admin-2030'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/governance'
     | '/reports'
+    | '/admin-2030/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +118,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GovernanceRoute: typeof GovernanceRoute
   ReportsRoute: typeof ReportsRoute
+  Admin2030IndexRoute: typeof Admin2030IndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -152,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-2030/': {
+      id: '/admin-2030/'
+      path: '/admin-2030'
+      fullPath: '/admin-2030/'
+      preLoaderRoute: typeof Admin2030IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GovernanceRoute: GovernanceRoute,
   ReportsRoute: ReportsRoute,
+  Admin2030IndexRoute: Admin2030IndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
