@@ -76,12 +76,17 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin-2030");
   const [showStartupLoading, setShowStartupLoading] = useState(
-    () => location.pathname === "/",
+    () => location.pathname === "/" && !isAdmin,
   );
 
   if (showStartupLoading) {
     return <LoadingScreen onComplete={() => setShowStartupLoading(false)} />;
+  }
+
+  if (isAdmin) {
+    return <Outlet />;
   }
 
   return (
