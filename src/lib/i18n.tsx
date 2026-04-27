@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
+import { SiteDataProvider, useSiteData } from "@/hooks/useSiteData";
 
 type Lang = "ar" | "en";
 
@@ -17,15 +18,13 @@ export function useI18n() {
   return ctx;
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+function I18nInner({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("ar");
-  const [hydrated, setHydrated] = useState(false);
+  const { content } = useSiteData();
 
-  // Sync from localStorage after hydration to avoid mismatch
   useEffect(() => {
     const saved = localStorage.getItem("lang") as Lang;
     if (saved && saved !== lang) setLang(saved);
-    setHydrated(true);
   }, []);
 
   const toggleLang = useCallback(() => {
@@ -40,6 +39,16 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const t = useCallback(
     (key: string): string => {
+      // 1) Live override from database (admin dashboard edits show instantly)
+      const dbVal = content[key];
+      if (dbVal) {
+        const v = lang === "ar" ? dbVal.ar : dbVal.en;
+        if (v && v.trim()) return v;
+        // fall back to other lang if current lang is empty
+        const other = lang === "ar" ? dbVal.en : dbVal.ar;
+        if (other && other.trim()) return other;
+      }
+      // 2) Built-in default translations
       const parts = key.split(".");
       let val: unknown = translations[lang];
       for (const p of parts) {
@@ -51,10 +60,18 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       }
       return typeof val === "string" ? val : key;
     },
-    [lang],
+    [lang, content],
   );
 
   return <I18nContext.Provider value={{ lang, dir, toggleLang, t }}>{children}</I18nContext.Provider>;
+}
+
+export function I18nProvider({ children }: { children: ReactNode }) {
+  return (
+    <SiteDataProvider>
+      <I18nInner>{children}</I18nInner>
+    </SiteDataProvider>
+  );
 }
 
 const translations: Record<Lang, Record<string, unknown>> = {
