@@ -127,9 +127,10 @@ export default function GovernanceSection() {
 
                 <div className="p-2 md:p-4 bg-slate-100/50">
                   <iframe
+                    key={pdfUrl}
                     src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1&view=FitH`}
                     className={`w-full h-125 md:h-200 rounded-2xl border-0 bg-white transition-all duration-500 ${!isFocused ? 'pointer-events-none' : 'pointer-events-auto'}`}
-                    title="اللائحة الأساسية"
+                    title={docTitle}
                     loading="lazy"
                   />
                 </div>
