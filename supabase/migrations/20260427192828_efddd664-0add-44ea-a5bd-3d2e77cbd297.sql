@@ -1,0 +1,1 @@
+DELETE FROM public.site_images WHERE url LIKE '/src/%';
