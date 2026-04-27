@@ -63,7 +63,7 @@ export function BilingualListManager({
 
   const addNew = async () => {
     const order = (items[items.length - 1]?.display_order ?? -1) + 1;
-    const { error } = await supabase.from(table).insert({ ...defaultValues, display_order: order });
+    const { error } = await supabase.from(table).insert({ ...defaultValues, display_order: order } as any);
     if (error) toast.error(error.message);
     else { toast.success("أُضيف"); load(); }
   };
