@@ -2,19 +2,20 @@ import { useState } from "react";
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerGovernance from "@/assets/header-governance.jpg";
 import { useI18n } from "@/lib/i18n";
+import { useSiteImage, useSiteData } from "@/hooks/useSiteData";
 
 export default function GovernanceSection() {
-  const pdfUrl = "/docs/bylaws.pdf";
-  const { t } = useI18n();
-  
-  // حالة للتحكم في تفعيل السكرول داخل الـ PDF
+  const { t, lang } = useI18n();
+  const { content } = useSiteData();
+  const headerUrl = useSiteImage("header_governance", headerGovernance);
+  const pdfUrl = content["governance.pdfUrl"]?.[lang] || content["governance.pdfUrl"]?.ar || "/docs/bylaws.pdf";
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <section className="relative overflow-hidden">
       {/* Page Header */}
       <div className="relative overflow-hidden py-32">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerGovernance})` }} />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerUrl})` }} />
         <div className="absolute inset-0 bg-linear-to-l from-[#071e25]/85 via-[#1C6C81]/70 to-[#2A8DA8]/50" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.72_0.14_75/10%)_0%,transparent_50%)]" />
         

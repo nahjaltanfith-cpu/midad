@@ -1,16 +1,19 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerReports from "@/assets/header-reports.jpg";
 import { useI18n } from "@/lib/i18n";
+import { useSiteImage, useSiteData } from "@/hooks/useSiteData";
 
 export default function ReportsSection() {
-  const pdfUrl = "/docs/registration-decree.pdf";
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const { content } = useSiteData();
+  const headerUrl = useSiteImage("header_reports", headerReports);
+  const pdfUrl = content["reports.pdfUrl"]?.[lang] || content["reports.pdfUrl"]?.ar || "/docs/registration-decree.pdf";
 
   return (
     <section className="relative overflow-hidden">
       {/* Page Header */}
       <div className="relative overflow-hidden py-32">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerReports})` }} />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${headerUrl})` }} />
         <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/85 via-[#1C6C81]/70 to-[#2A8DA8]/50" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.72_0.14_75_/_10%)_0%,_transparent_50%)]" />
         <div className="absolute top-10 right-10 w-48 h-48 rounded-full border border-white/[0.05] animate-[float_8s_ease-in-out_infinite]" />

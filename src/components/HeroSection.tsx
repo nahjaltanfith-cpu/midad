@@ -3,10 +3,12 @@ import { useEffect, useRef } from "react";
 import VisionSection from "@/components/VisionSection";
 import heroBg from "@/assets/hero-bg.jpg";
 import { useI18n } from "@/lib/i18n";
+import { useSiteImage } from "@/hooks/useSiteData";
 
 export default function HeroSection() {
   const bgRef = useRef<HTMLDivElement>(null);
   const { t } = useI18n();
+  const heroBgUrl = useSiteImage("hero_bg", heroBg);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +28,7 @@ export default function HeroSection() {
           ref={bgRef}
           className="absolute inset-0 will-change-transform"
           style={{
-            backgroundImage: `url(${heroBg})`,
+            backgroundImage: `url(${heroBgUrl})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             transform: "scale(1.1)",

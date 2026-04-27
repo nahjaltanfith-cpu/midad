@@ -4,10 +4,33 @@ import midadLogo from "@/assets/midad-logo.png";
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerContact from "@/assets/header-contact.jpg";
 import { useI18n } from "@/lib/i18n";
+import { useSiteImage } from "@/hooks/useSiteData";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
   const { t } = useI18n();
+  const headerUrl = useSiteImage("header_contact", headerContact);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast.error("يرجى تعبئة جميع الحقول");
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.from("contact_messages").insert({
+      name: formData.name, email: formData.email, message: formData.message,
+    });
+    setSubmitting(false);
+    if (error) toast.error(error.message);
+    else {
+      toast.success("تم إرسال رسالتك بنجاح");
+      setFormData({ name: "", email: "", message: "" });
+    }
+  };
 
   return (
     <section className="relative overflow-hidden">
