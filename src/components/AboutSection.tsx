@@ -56,15 +56,34 @@ function PageHeader({ badge, title, subtitle, bgImage }: { badge: string; title:
 }
 
 export default function AboutSection() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const headerAboutUrl = useSiteImage("header_about", headerAbout);
+  const { rows: dbGoals } = useDbList<{ id: string; title_ar: string; title_en: string | null; desc_ar: string | null; desc_en: string | null; icon_path: string }>("goals");
+  const { rows: dbBoard } = useDbList<{ id: string; name_ar: string; name_en: string | null; role_ar: string; role_en: string | null; color_class: string | null }>("board_members");
+  const { rows: dbAssembly } = useDbList<{ id: string; name_ar: string; name_en: string | null }>("assembly_members");
 
-  const boardMembers = [
-    { name: "خالد سالم العواشز", nameEn: "Khaled Salem Al-Awashez", role: t("about.boardChair"), color: "from-[#1C6C81] to-[#2A8DA8]" },
-    { name: "عبدالله عبدالمحسن الدوسري", nameEn: "Abdullah Al-Dosari", role: t("about.boardVice"), color: "from-[#D4A533] to-[#E8C84B]" },
-    { name: "أحمد إبراهيم الزيداني", nameEn: "Ahmed Al-Zaidani", role: t("about.boardMember"), color: "from-[#1C6C81] to-[#2A8DA8]" },
-    { name: "عمر محمد أبو ملحة", nameEn: "Omar Abu Malha", role: t("about.boardMember"), color: "from-[#D4A533] to-[#E8C84B]" },
-    { name: "سعد إبراهيم آل مهدي", nameEn: "Saad Al Mahdi", role: t("about.boardMember"), color: "from-[#1C6C81] to-[#2A8DA8]" },
-  ];
+  // Use DB content when available, otherwise fall back to defaults
+  const goals = dbGoals.length
+    ? dbGoals.map((g, i) => ({
+        title: lang === "ar" ? g.title_ar : g.title_en || g.title_ar,
+        desc: lang === "ar" ? g.desc_ar || "" : g.desc_en || g.desc_ar || "",
+        icon: g.icon_path || fallbackGoals[i % fallbackGoals.length].icon,
+      }))
+    : fallbackGoals.map((g, i) => ({
+        title: t(`about.g${i + 1}Title`),
+        desc: t(`about.g${i + 1}Desc`),
+        icon: g.icon,
+      }));
+
+  const boardMembers = (dbBoard.length ? dbBoard : fallbackBoard).map((m) => ({
+    name: lang === "ar" ? m.name_ar : (m as any).name_en || m.name_ar,
+    role: lang === "ar" ? m.role_ar : (m as any).role_en || m.role_ar,
+    color: m.color_class || "from-[#1C6C81] to-[#2A8DA8]",
+  }));
+
+  const assemblyMembers = (dbAssembly.length ? dbAssembly : fallbackAssembly).map((m) =>
+    lang === "ar" ? m.name_ar : (m as any).name_en || m.name_ar,
+  );
 
   return (
     <section className="relative overflow-hidden">
@@ -72,7 +91,7 @@ export default function AboutSection() {
         badge={t("about.badge")}
         title={t("about.title")}
         subtitle={t("about.subtitle")}
-        bgImage={headerAbout}
+        bgImage={headerAboutUrl}
       />
 
       <div className="py-20 bg-background relative">
