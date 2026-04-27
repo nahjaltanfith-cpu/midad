@@ -87,7 +87,12 @@ function RootComponent() {
   }
 
   if (isAdmin) {
-    return <Outlet />;
+    return (
+      <>
+        <Outlet />
+        <Toaster richColors position="top-center" />
+      </>
+    );
   }
 
   return (
@@ -97,6 +102,8 @@ function RootComponent() {
         <Outlet />
       </PageTransition>
       <Footer />
+      <Toaster richColors position="top-center" />
+    </>
     </>
   );
 }
