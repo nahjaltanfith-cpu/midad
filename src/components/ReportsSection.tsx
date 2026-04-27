@@ -1,13 +1,52 @@
+import { useEffect, useState } from "react";
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerReports from "@/assets/header-reports.jpg";
 import { useI18n } from "@/lib/i18n";
-import { useSiteImage, useSiteData } from "@/hooks/useSiteData";
+import { useSiteImage } from "@/hooks/useSiteData";
+import { supabase } from "@/integrations/supabase/client";
+
+interface ReportItem {
+  id: string;
+  title_ar: string;
+  title_en: string | null;
+  description_ar: string | null;
+  description_en: string | null;
+  file_url: string;
+  category: string;
+  display_order: number;
+}
 
 export default function ReportsSection() {
   const { t, lang } = useI18n();
-  const { content } = useSiteData();
   const headerUrl = useSiteImage("header_reports", headerReports);
-  const pdfUrl = content["reports.pdfUrl"]?.[lang] || content["reports.pdfUrl"]?.ar || "/docs/registration-decree.pdf";
+  const [reports, setReports] = useState<ReportItem[]>([]);
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase
+        .from("site_reports")
+        .select("*")
+        .eq("category", "reports")
+        .eq("is_published", true)
+        .order("display_order");
+      const list = (data as ReportItem[]) || [];
+      setReports(list);
+      if (list.length && !activeId) setActiveId(list[0].id);
+    };
+    load();
+
+    const ch = supabase
+      .channel("reports-live")
+      .on("postgres_changes", { event: "*", schema: "public", table: "site_reports" }, () => load())
+      .subscribe();
+    return () => { supabase.removeChannel(ch); };
+  }, []);
+
+  const active = reports.find(r => r.id === activeId) || reports[0];
+  const pdfUrl = active?.file_url || "/docs/registration-decree.pdf";
+  const title = (lang === "en" ? active?.title_en : active?.title_ar) || active?.title_ar || t("reports.docTitle");
+  const desc = (lang === "en" ? active?.description_en : active?.description_ar) || active?.description_ar || t("reports.docDesc");
 
   return (
     <section className="relative overflow-hidden">
@@ -31,6 +70,28 @@ export default function ReportsSection() {
       <div className="py-24 bg-muted/30">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
+
+            {/* Files list */}
+            {reports.length > 1 && (
+              <AnimateOnScroll>
+                <div className="flex flex-wrap justify-center gap-3 mb-8">
+                  {reports.map(r => (
+                    <button
+                      key={r.id}
+                      onClick={() => setActiveId(r.id)}
+                      className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                        active?.id === r.id
+                          ? "gradient-primary text-white shadow-lg"
+                          : "bg-card border border-border text-foreground hover:bg-muted/50"
+                      }`}
+                    >
+                      {(lang === "en" ? r.title_en : r.title_ar) || r.title_ar}
+                    </button>
+                  ))}
+                </div>
+              </AnimateOnScroll>
+            )}
+
             <AnimateOnScroll>
               <div className="text-center mb-10">
                 <div className="inline-flex items-center gap-3 mb-4 flex-wrap justify-center">
@@ -41,30 +102,28 @@ export default function ReportsSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="m9 15 2 2 4-4" />
                     </svg>
                   </div>
-                  <h2 className="text-3xl font-bold text-foreground">{t("reports.docTitle")}</h2>
+                  <h2 className="text-3xl font-bold text-foreground">{title}</h2>
                 </div>
-                <p className="text-muted-foreground max-w-2xl mx-auto mb-4">{t("reports.docDesc")}</p>
-                <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-                  <span>{t("reports.number")}: <b className="text-foreground">ED047745</b></span>
-                  <span>{t("reports.license")}: <b className="text-foreground">1000862200</b></span>
-                  <span>{t("reports.date")}: <b className="text-foreground">1447/09/24 هـ</b></span>
-                </div>
+                {desc && <p className="text-muted-foreground max-w-2xl mx-auto mb-4">{desc}</p>}
               </div>
             </AnimateOnScroll>
 
-            <AnimateOnScroll>
-              <div className="rounded-[2rem] border border-border bg-card shadow-luxury overflow-hidden gold-border-hover">
-                <div className="bg-muted/20 p-3 md:p-4">
-                  <iframe
-                    src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1&view=FitH`}
-                    className="w-full h-[600px] md:h-[850px] rounded-2xl border-0 bg-white"
-                    title="قرار التسجيل"
-                    loading="lazy"
-                    allow="autoplay; fullscreen"
-                  />
+            {pdfUrl && (
+              <AnimateOnScroll>
+                <div className="rounded-[2rem] border border-border bg-card shadow-luxury overflow-hidden gold-border-hover">
+                  <div className="bg-muted/20 p-3 md:p-4">
+                    <iframe
+                      key={pdfUrl}
+                      src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1&view=FitH`}
+                      className="w-full h-[600px] md:h-[850px] rounded-2xl border-0 bg-white"
+                      title={title}
+                      loading="lazy"
+                      allow="autoplay; fullscreen"
+                    />
+                  </div>
                 </div>
-              </div>
-            </AnimateOnScroll>
+              </AnimateOnScroll>
+            )}
 
             <AnimateOnScroll>
               <div className="flex justify-center mt-8 flex-wrap gap-4">
