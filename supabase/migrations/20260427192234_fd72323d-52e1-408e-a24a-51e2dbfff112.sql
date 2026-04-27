@@ -1,0 +1,1 @@
+DELETE FROM public.site_images WHERE key = 'hero_bg' AND (url IS NULL OR url = '' OR url LIKE '/src/%');
