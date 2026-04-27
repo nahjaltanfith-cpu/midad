@@ -103,10 +103,10 @@ export default function VisionSection() {
                 </div>
                 
                 <h4 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
-                  {t(`vision.${value.key}Title`)}
+                  {(value as any).title}
                 </h4>
                 <p className="text-muted-foreground leading-relaxed text-sm">
-                  {t(`vision.${value.key}Desc`)}
+                  {(value as any).desc}
                 </p>
               </div>
             </AnimateOnScroll>
