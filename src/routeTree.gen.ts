@@ -18,6 +18,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as Admin2030IndexRouteImport } from './routes/admin-2030.index'
 import { Route as Admin2030DashboardRouteImport } from './routes/admin-2030.dashboard'
 import { Route as Admin2030DashboardIndexRouteImport } from './routes/admin-2030.dashboard.index'
+import { Route as Admin2030DashboardImagesRouteImport } from './routes/admin-2030.dashboard.images'
+import { Route as Admin2030DashboardContentRouteImport } from './routes/admin-2030.dashboard.content'
 
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
@@ -64,6 +66,18 @@ const Admin2030DashboardIndexRoute = Admin2030DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => Admin2030DashboardRoute,
 } as any)
+const Admin2030DashboardImagesRoute =
+  Admin2030DashboardImagesRouteImport.update({
+    id: '/images',
+    path: '/images',
+    getParentRoute: () => Admin2030DashboardRoute,
+  } as any)
+const Admin2030DashboardContentRoute =
+  Admin2030DashboardContentRouteImport.update({
+    id: '/content',
+    path: '/content',
+    getParentRoute: () => Admin2030DashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -74,6 +88,8 @@ export interface FileRoutesByFullPath {
   '/reports': typeof ReportsRoute
   '/admin-2030/dashboard': typeof Admin2030DashboardRouteWithChildren
   '/admin-2030/': typeof Admin2030IndexRoute
+  '/admin-2030/dashboard/content': typeof Admin2030DashboardContentRoute
+  '/admin-2030/dashboard/images': typeof Admin2030DashboardImagesRoute
   '/admin-2030/dashboard/': typeof Admin2030DashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -84,6 +100,8 @@ export interface FileRoutesByTo {
   '/governance': typeof GovernanceRoute
   '/reports': typeof ReportsRoute
   '/admin-2030': typeof Admin2030IndexRoute
+  '/admin-2030/dashboard/content': typeof Admin2030DashboardContentRoute
+  '/admin-2030/dashboard/images': typeof Admin2030DashboardImagesRoute
   '/admin-2030/dashboard': typeof Admin2030DashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -96,6 +114,8 @@ export interface FileRoutesById {
   '/reports': typeof ReportsRoute
   '/admin-2030/dashboard': typeof Admin2030DashboardRouteWithChildren
   '/admin-2030/': typeof Admin2030IndexRoute
+  '/admin-2030/dashboard/content': typeof Admin2030DashboardContentRoute
+  '/admin-2030/dashboard/images': typeof Admin2030DashboardImagesRoute
   '/admin-2030/dashboard/': typeof Admin2030DashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -109,6 +129,8 @@ export interface FileRouteTypes {
     | '/reports'
     | '/admin-2030/dashboard'
     | '/admin-2030/'
+    | '/admin-2030/dashboard/content'
+    | '/admin-2030/dashboard/images'
     | '/admin-2030/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -119,6 +141,8 @@ export interface FileRouteTypes {
     | '/governance'
     | '/reports'
     | '/admin-2030'
+    | '/admin-2030/dashboard/content'
+    | '/admin-2030/dashboard/images'
     | '/admin-2030/dashboard'
   id:
     | '__root__'
@@ -130,6 +154,8 @@ export interface FileRouteTypes {
     | '/reports'
     | '/admin-2030/dashboard'
     | '/admin-2030/'
+    | '/admin-2030/dashboard/content'
+    | '/admin-2030/dashboard/images'
     | '/admin-2030/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -209,14 +235,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Admin2030DashboardIndexRouteImport
       parentRoute: typeof Admin2030DashboardRoute
     }
+    '/admin-2030/dashboard/images': {
+      id: '/admin-2030/dashboard/images'
+      path: '/images'
+      fullPath: '/admin-2030/dashboard/images'
+      preLoaderRoute: typeof Admin2030DashboardImagesRouteImport
+      parentRoute: typeof Admin2030DashboardRoute
+    }
+    '/admin-2030/dashboard/content': {
+      id: '/admin-2030/dashboard/content'
+      path: '/content'
+      fullPath: '/admin-2030/dashboard/content'
+      preLoaderRoute: typeof Admin2030DashboardContentRouteImport
+      parentRoute: typeof Admin2030DashboardRoute
+    }
   }
 }
 
 interface Admin2030DashboardRouteChildren {
+  Admin2030DashboardContentRoute: typeof Admin2030DashboardContentRoute
+  Admin2030DashboardImagesRoute: typeof Admin2030DashboardImagesRoute
   Admin2030DashboardIndexRoute: typeof Admin2030DashboardIndexRoute
 }
 
 const Admin2030DashboardRouteChildren: Admin2030DashboardRouteChildren = {
+  Admin2030DashboardContentRoute: Admin2030DashboardContentRoute,
+  Admin2030DashboardImagesRoute: Admin2030DashboardImagesRoute,
   Admin2030DashboardIndexRoute: Admin2030DashboardIndexRoute,
 }
 
