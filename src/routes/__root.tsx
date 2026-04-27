@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import LoadingScreen from "@/components/LoadingScreen";
 import { Footer } from "@/components/ContactSection";
+import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 
