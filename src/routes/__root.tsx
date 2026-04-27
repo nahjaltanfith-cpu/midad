@@ -104,6 +104,5 @@ function RootComponent() {
       <Footer />
       <Toaster richColors position="top-center" />
     </>
-    </>
   );
 }
