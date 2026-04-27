@@ -1,15 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerGovernance from "@/assets/header-governance.jpg";
 import { useI18n } from "@/lib/i18n";
-import { useSiteImage, useSiteData } from "@/hooks/useSiteData";
+import { useSiteImage } from "@/hooks/useSiteData";
+import { supabase } from "@/integrations/supabase/client";
+
+interface GovItem {
+  id: string;
+  title_ar: string;
+  title_en: string | null;
+  file_url: string;
+  display_order: number;
+}
 
 export default function GovernanceSection() {
   const { t, lang } = useI18n();
-  const { content } = useSiteData();
   const headerUrl = useSiteImage("header_governance", headerGovernance);
-  const pdfUrl = content["governance.pdfUrl"]?.[lang] || content["governance.pdfUrl"]?.ar || "/docs/bylaws.pdf";
+  const [items, setItems] = useState<GovItem[]>([]);
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [isFocused, setIsFocused] = useState(false);
+
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase
+        .from("site_reports")
+        .select("id,title_ar,title_en,file_url,display_order")
+        .eq("category", "governance")
+        .eq("is_published", true)
+        .order("display_order");
+      const list = (data as GovItem[]) || [];
+      setItems(list);
+      if (list.length && !activeId) setActiveId(list[0].id);
+    };
+    load();
+
+    const ch = supabase
+      .channel("governance-live")
+      .on("postgres_changes", { event: "*", schema: "public", table: "site_reports" }, () => load())
+      .subscribe();
+    return () => { supabase.removeChannel(ch); };
+  }, []);
+
+  const active = items.find(i => i.id === activeId) || items[0];
+  const pdfUrl = active?.file_url || "/docs/bylaws.pdf";
+  const docTitle = (lang === "en" ? active?.title_en : active?.title_ar) || active?.title_ar || t("governance.docTitle");
 
   return (
     <section className="relative overflow-hidden">
